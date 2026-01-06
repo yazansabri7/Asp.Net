@@ -1,0 +1,14 @@
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\bin\Debug\net9.0\YASHOP.DAL.deps.json
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\bin\Debug\net9.0\YASHOP.DAL.runtimeconfig.json
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\bin\Debug\net9.0\YASHOP.DAL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\bin\Debug\net9.0\YASHOP.DAL.pdb
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.csproj.AssemblyReference.cache
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.AssemblyInfoInputs.cache
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.AssemblyInfo.cs
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.csproj.CoreCompileInputs.cache
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\refint\YASHOP.DAL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.pdb
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.genruntimeconfig.cache
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\ref\YASHOP.DAL.dll

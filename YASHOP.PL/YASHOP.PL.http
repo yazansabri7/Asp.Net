@@ -1,0 +1,6 @@
+@YASHOP.PL_HostAddress = http://localhost:5140
+
+GET {{YASHOP.PL_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
