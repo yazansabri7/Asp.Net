@@ -12,3 +12,4 @@ C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\refi
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.pdb
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.genruntimeconfig.cache
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\ref\YASHOP.DAL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.DAL\obj\Debug\net9.0\YASHOP.DAL.sourcelink.json

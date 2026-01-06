@@ -177,3 +177,4 @@ C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.PL\bin\Debug\net9.0\Mapst
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.PL\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.PL\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.PL\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.PL\obj\Debug\net9.0\YASHOP.PL.sourcelink.json

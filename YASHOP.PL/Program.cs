@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+using YASHOP.BLL.Service;
 using YASHOP.DAL.Data;
+using YASHOP.DAL.Repository;
 
 namespace YASHOP.PL
 {
@@ -50,6 +52,9 @@ namespace YASHOP.PL
             });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
             var app = builder.Build();

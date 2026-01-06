@@ -10,4 +10,8 @@
     <ProjectReference Include="..\YASHOP.DAL\YASHOP.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
+  </ItemGroup>
+
 </Project>

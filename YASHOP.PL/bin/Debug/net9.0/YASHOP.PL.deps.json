@@ -1089,6 +1089,7 @@
       },
       "YASHOP.BLL/1.0.0": {
         "dependencies": {
+          "Mapster": "7.4.0",
           "YASHOP.DAL": "1.0.0"
         },
         "runtime": {

@@ -13,3 +13,4 @@ C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Debug\net9.0\YASH
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Debug\net9.0\refint\YASHOP.BLL.dll
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Debug\net9.0\YASHOP.BLL.pdb
 C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Debug\net9.0\ref\YASHOP.BLL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Debug\net9.0\YASHOP.BLL.sourcelink.json
