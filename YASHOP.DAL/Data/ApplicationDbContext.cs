@@ -29,7 +29,6 @@ namespace YASHOP.DAL.Data
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
 
-
         }
     }
 }
