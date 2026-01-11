@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using YASHOP.BLL.Service;
 using YASHOP.DAL.Data;
+using YASHOP.DAL.Models;
 using YASHOP.DAL.Repository;
 
 namespace YASHOP.PL
@@ -30,6 +32,11 @@ namespace YASHOP.PL
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            //Add Identity 
+            builder.Services.AddIdentity<ApplicationUser,IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>() // stores is repository
+                .AddDefaultTokenProviders();
 
             //Add Localization
             builder.Services.AddLocalization(options => options.ResourcesPath = "");
