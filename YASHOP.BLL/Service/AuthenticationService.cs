@@ -20,30 +20,85 @@ namespace YASHOP.BLL.Service
         }
 
 
-        public Task<LoginResponse> LoginAsync(LoginRequest loginRequest)
+        public async Task<LoginResponse> LoginAsync(LoginRequest loginRequest)
         {
-           throw new NotImplementedException();
+            try
+            {
+                var user = await userManager.FindByEmailAsync(loginRequest.Email);
+                if(user is null)
+                {
+                    return new LoginResponse()
+                    {
+                        Success = false,
+                        Message="Invalid Email",
+                    };
+                }
+                var result = await userManager.CheckPasswordAsync(user, loginRequest.Password);
+                if (!result)
+                {
+                    return new LoginResponse()
+                    {
+                        Success = false,
+                        Message = "Invalid Password",
+                    };
+                }
+                return new LoginResponse()
+                {
+                    Success = true,
+                    Message = "Login Successfully",
+                };
+            }
+            catch(Exception ex)
+            {
+                return new LoginResponse()
+                {
+                    Success = false,
+                    Message = "An Exception Error",
+                    Errors = new List<string> { ex.Message }
+                };
+            }
+
+
+
 
         }
 
         public async Task<RegisterResponse> RegisterAsync(RegisterRequest registerRequest)
         {
-            var user = registerRequest.Adapt<ApplicationUser>();
-            var result = await userManager.CreateAsync(user, registerRequest.Password);
-            if (!result.Succeeded)
+            try
+            {
+                var user = registerRequest.Adapt<ApplicationUser>();
+                var result = await userManager.CreateAsync(user, registerRequest.Password);
+            
+                if (!result.Succeeded)
+                {
+                    return new RegisterResponse()
+                    {
+                        Message = "Error",
+                        Success = false,
+                        Errors = result.Errors.Select(e => e.Description).ToList()
+
+                    };
+                }
+                await userManager.AddToRoleAsync(user, "User");
+                return new RegisterResponse()
+                {
+                    Message = "Success",
+                    Success = true
+
+                };
+            }catch(Exception ex)
             {
                 return new RegisterResponse()
                 {
-                    Message = "Error"
 
+                    Message = "An Exception Error",
+                    Success = false,
+                    Errors = new List<string>{ ex.Message }
                 };
             }
-            await userManager.AddToRoleAsync(user, "User");
-            return new RegisterResponse()
-            {
-                Message = "Success"
 
-            };
+
 
         }
     }

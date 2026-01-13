@@ -9,5 +9,7 @@ namespace YASHOP.DAL.DTO.Response
     public class RegisterResponse
     {
         public string Message { get; set; }
+        public bool Success { get; set; }
+        public List<string>? Errors { get; set; }
     }
 }
