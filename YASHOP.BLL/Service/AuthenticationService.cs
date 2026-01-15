@@ -1,8 +1,12 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using YASHOP.DAL.DTO.Request;
@@ -14,9 +18,12 @@ namespace YASHOP.BLL.Service
     public class AuthenticationService : IAuthenticationService
     {
         public UserManager<ApplicationUser> userManager { get; }
-        public AuthenticationService(UserManager<ApplicationUser> userManager)
+        public IConfiguration configuration { get; }
+
+        public AuthenticationService(UserManager<ApplicationUser> userManager , IConfiguration configuration)
         {
             this.userManager = userManager;
+            this.configuration = configuration;
         }
 
 
@@ -46,6 +53,7 @@ namespace YASHOP.BLL.Service
                 {
                     Success = true,
                     Message = "Login Successfully",
+                    AccessToken = await GenerateAccessToken(user)
                 };
             }
             catch(Exception ex)
@@ -100,6 +108,26 @@ namespace YASHOP.BLL.Service
 
 
 
+        }
+
+        private async Task<string> GenerateAccessToken(ApplicationUser user)
+        {
+            var userClaims = new List<Claim>()
+            {
+                new Claim(ClaimTypes.NameIdentifier,user.Id),
+                new Claim(ClaimTypes.Email,user.Email),
+                new Claim(ClaimTypes.Name,user.UserName)
+            };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                issuer: configuration["Jwt:Issuer"],
+                audience: configuration["Jwt:Audience"],
+                claims: userClaims,
+                expires: DateTime.UtcNow.AddMinutes(5),
+                signingCredentials: creds 
+                );
+            return new  JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
