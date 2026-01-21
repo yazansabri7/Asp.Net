@@ -21,13 +21,16 @@ namespace YASHOP.BLL.Service
         public UserManager<ApplicationUser> userManager { get; }
         public IConfiguration configuration { get; }
         public IEmailSender emailSender { get; }
+        public SignInManager<ApplicationUser> signInManager { get; }
 
         public AuthenticationService(UserManager<ApplicationUser> userManager , IConfiguration configuration , 
-            IEmailSender emailSender)
+            IEmailSender emailSender , 
+            SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
             this.configuration = configuration;
             this.emailSender = emailSender;
+            this.signInManager = signInManager;
         }
 
 
@@ -44,8 +47,34 @@ namespace YASHOP.BLL.Service
                         Message="Invalid Email",
                     };
                 }
-                var result = await userManager.CheckPasswordAsync(user, loginRequest.Password);
-                if (!result)
+                if (await userManager.IsLockedOutAsync(user))
+                {
+                    return new LoginResponse()
+                    {
+                        Success = false,
+                        Message = "User is Locked Out , try again later",
+                    };
+
+                }
+                var result= await signInManager.CheckPasswordSignInAsync(user, loginRequest.Password, true);
+                if(result.IsLockedOut)
+                {
+                    return new LoginResponse()
+                    {
+                        Success = false,
+                        Message = "Account is Locked Out , try again later",
+                    };
+                }
+                if(result.IsNotAllowed)
+                {
+                    return new LoginResponse()
+                    {
+                        Success = false,
+                        Message = "Email is not confirmed",
+                    };
+                }
+
+                if (!result.Succeeded)
                 {
                     return new LoginResponse()
                     {
@@ -69,10 +98,6 @@ namespace YASHOP.BLL.Service
                     Errors = new List<string> { ex.Message }
                 };
             }
-
-
-
-
         }
 
         public async Task<RegisterResponse> RegisterAsync(RegisterRequest registerRequest)
