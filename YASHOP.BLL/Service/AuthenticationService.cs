@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -19,11 +20,14 @@ namespace YASHOP.BLL.Service
     {
         public UserManager<ApplicationUser> userManager { get; }
         public IConfiguration configuration { get; }
+        public IEmailSender emailSender { get; }
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager , IConfiguration configuration)
+        public AuthenticationService(UserManager<ApplicationUser> userManager , IConfiguration configuration , 
+            IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.configuration = configuration;
+            this.emailSender = emailSender;
         }
 
 
@@ -89,6 +93,11 @@ namespace YASHOP.BLL.Service
                     };
                 }
                 await userManager.AddToRoleAsync(user, "User");
+                var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                token = Uri.EscapeDataString(token);
+                var EmailUrl = $"https://localhost:7220/api/auth/Account/ConfirmEmail?token={token}&userId={user.Id}";
+                await emailSender.SendEmailAsync(user.Email , "Welcome" , $"<h1> Welcome .. {user.UserName} </h1> " +
+                    $"<a href='{EmailUrl}'>Confirm Email</a>");
                 return new RegisterResponse()
                 {
                     Message = "Success",
@@ -105,10 +114,24 @@ namespace YASHOP.BLL.Service
                     Errors = new List<string>{ ex.Message }
                 };
             }
-
-
-
         }
+        public async Task<bool> ConfirmEmailAsync(string token, string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if (user is null)
+            {
+                return false;
+            }
+            var result = await userManager.ConfirmEmailAsync(user, token);
+            if(!result.Succeeded)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+
 
         private async Task<string> GenerateAccessToken(ApplicationUser user)
         {

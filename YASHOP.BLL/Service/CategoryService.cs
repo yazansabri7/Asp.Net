@@ -29,7 +29,7 @@ namespace YASHOP.BLL.Service
 
         public CategoryResponse CreateCategory(CategoryRequest category)
         {
-            var categoryRequest= categoryRepository.Adapt<Category>();
+            var categoryRequest= category.Adapt<Category>();
             var Request = categoryRepository.Create(categoryRequest);
             return Request.Adapt<CategoryResponse>();
         }

@@ -12,5 +12,6 @@ namespace YASHOP.BLL.Service
     {
         Task<RegisterResponse> RegisterAsync(RegisterRequest registerRequest);
         Task<LoginResponse> LoginAsync(LoginRequest loginRequest);
+        Task<bool> ConfirmEmailAsync(string token, string userId);
     }
 }

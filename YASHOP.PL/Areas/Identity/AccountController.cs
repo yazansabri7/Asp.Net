@@ -38,5 +38,11 @@ namespace YASHOP.PL.Areas.Identity
             }
             return Ok(result);
         }
+        [HttpGet("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string token , string userId)
+        {
+            var result = await authenticationService.ConfirmEmailAsync(token , userId);
+            return Ok(result);
+        }
     }
 }

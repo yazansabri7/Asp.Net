@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -28,13 +29,6 @@ namespace YASHOP.PL
             builder.Services.AddOpenApi();
 
             //connect Database
-
-            //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlServer(builder.Configuration["ConnectionStrings:DefaultConnection"]));
-
-            //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings")["DefaultConnection"]));
-
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -90,6 +84,8 @@ namespace YASHOP.PL
             builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
             builder.Services.AddScoped<ISeedData,RoleSeedData>();
             builder.Services.AddScoped<ISeedData, UserSeedData>();
+            builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 
 
             var app = builder.Build();
