@@ -26,7 +26,7 @@ namespace YASHOP.DAL.Repository
 
         public Category Create(Category request)
         {
-            var category = context.Categories.Add(request);
+            context.Categories.Add(request);
             context.SaveChanges();
             return request;
         }
