@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace YASHOP.DAL.DTO.Response
 {
-    public class LoginResponse : BaseResponse
+    public class ResetPasswordResppnse : BaseResponse
     {
-        
-        public string? AccessToken { get; set; }
     }
 }

@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace YASHOP.DAL.DTO.Response
 {
-    public class LoginResponse : BaseResponse
+    public class BaseResponse
     {
-        
-        public string? AccessToken { get; set; }
+        public string Message { get; set; }
+        public bool Success { get; set; }
+        public List<string>? Errors { get; set; }
     }
 }

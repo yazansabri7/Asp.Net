@@ -39,9 +39,29 @@ namespace YASHOP.PL.Areas.Identity
             return Ok(result);
         }
         [HttpGet("ConfirmEmail")]
-        public async Task<IActionResult> ConfirmEmail(string token , string userId)
+        public async Task<IActionResult> ConfirmEmail(string token, string userId)
         {
-            var result = await authenticationService.ConfirmEmailAsync(token , userId);
+            var result = await authenticationService.ConfirmEmailAsync(token, userId);
+            return Ok(result);
+        }
+        [HttpPost("SendCode")]
+        public async Task<IActionResult> ForgetPassword(ForgetPasswordRequest request)
+        {
+            var result = await authenticationService.RequsetPasswordReset(request);
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
+            return Ok(result);
+        }
+        [HttpPatch("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequest request)
+        {
+            var result = await authenticationService.ResetPassword(request);
+            if (!result.Success)
+            {
+                return BadRequest(result);
+            }
             return Ok(result);
         }
     }

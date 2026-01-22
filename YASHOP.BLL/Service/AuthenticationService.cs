@@ -154,10 +154,6 @@ namespace YASHOP.BLL.Service
             }
             return true;
         }
-
-
-
-
         private async Task<string> GenerateAccessToken(ApplicationUser user)
         {
             var userClaims = new List<Claim>()
@@ -177,5 +173,77 @@ namespace YASHOP.BLL.Service
                 );
             return new  JwtSecurityTokenHandler().WriteToken(token);
         }
-    }
+        public async Task<ForgetPasswordResponse> RequsetPasswordReset(ForgetPasswordRequest request)
+        {
+            var user = await userManager.FindByEmailAsync(request.Email);
+            if(user is null)
+            {
+                return new ForgetPasswordResponse()
+                {
+                    Success = false,
+                    Message = "Invalid Email"
+                };
+            }
+            var random = new Random();
+            var code = random.Next(100000, 999999).ToString();
+            user.CodeResetPassword = code;
+            user.ExpireCodeResetPassword = DateTime.UtcNow.AddMinutes(15);
+            await userManager.UpdateAsync(user);
+            await emailSender.SendEmailAsync(user.Email, "Reset Password", $"<p>Your Reset Code is : {code} </p>");
+            return new ForgetPasswordResponse()
+            {
+                Success = true,
+                Message = "Reset Code Sent to your Email"
+            };
+
+
+        }
+
+        public async Task<ResetPasswordResppnse> ResetPassword(ResetPasswordRequest request)
+        {
+            var user = await userManager.FindByEmailAsync(request.Email);
+            if (user is null)
+            {
+                return new ResetPasswordResppnse()
+                {
+                    Success = false,
+                    Message = "Invalid Email"
+                };
+            }
+            else if(user.CodeResetPassword != request.CodeResetPassword)
+            {
+                return new ResetPasswordResppnse()
+                {
+                    Success = false,
+                    Message = "Invalid Reset Code"
+                };
+            }
+            else if(user.ExpireCodeResetPassword < DateTime.UtcNow)
+            {
+                return new ResetPasswordResppnse()
+                {
+                    Success = false,
+                    Message = "Reset Code Expired"
+                };
+            }
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await userManager.ResetPasswordAsync(user, token , request.NewPassword);
+            if(!result.Succeeded)
+            {
+                return new ResetPasswordResppnse()
+                {
+                    Success = false,
+                    Message = "Error",
+                    Errors = result.Errors.Select(e => e.Description).ToList()
+                };
+            }
+            await emailSender.SendEmailAsync(user.Email, "Password Reset Successfully", $"<p>Your Password has been reset successfully.</p>");
+            return new ResetPasswordResppnse()
+            {
+                Success = true,
+                Message = "Password Reset Successfully"
+            };
+
+        }
+     }
 }

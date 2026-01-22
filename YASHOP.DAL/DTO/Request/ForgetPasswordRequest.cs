@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YASHOP.DAL.DTO.Response
+namespace YASHOP.DAL.DTO.Request
 {
-    public class RegisterResponse : BaseResponse
+    public class ForgetPasswordRequest
     {
-       
+        public string Email { get; set; }
     }
 }

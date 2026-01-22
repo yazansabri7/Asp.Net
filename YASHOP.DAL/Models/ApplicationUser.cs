@@ -12,6 +12,9 @@ namespace YASHOP.DAL.Models
         public string FullName { get; set; }
         public string? City { get; set; }
         public string? Street { get; set; }
+        public string? CodeResetPassword { get; set; }
+        public DateTime? ExpireCodeResetPassword { get; set; }
+
 
     }
 }

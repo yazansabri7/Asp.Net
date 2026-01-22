@@ -69,6 +69,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "YASHOP.PL.Areas.Identity.AccountController",
+    "Method": "ResetPassword",
+    "RelativePath": "api/auth/Account/ResetPassword",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "YASHOP.DAL.DTO.Request.ResetPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "YASHOP.PL.Areas.Identity.AccountController",
+    "Method": "ForgetPassword",
+    "RelativePath": "api/auth/Account/SendCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "YASHOP.DAL.DTO.Request.ForgetPasswordRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "YASHOP.PL.Areas.User.CategoriesController",
     "Method": "Index",
     "RelativePath": "api/Categories",
