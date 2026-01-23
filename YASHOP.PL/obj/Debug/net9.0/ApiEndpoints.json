@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "YASHOP.PL.Areas.Admin.CategoriesController",
-    "Method": "Create",
+    "Method": "CreateCategory",
     "RelativePath": "api/admin/Categories",
     "HttpMethod": "POST",
     "IsController": true,
@@ -10,6 +10,22 @@
       {
         "Name": "request",
         "Type": "YASHOP.DAL.DTO.Request.CategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "YASHOP.PL.Areas.Admin.CategoriesController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/admin/Categories/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

@@ -24,10 +24,24 @@ namespace YASHOP.PL.Areas.Admin
         }
 
         [HttpPost("")]
-        public IActionResult Create(CategoryRequest request)
+        public IActionResult CreateCategory(CategoryRequest request)
         {
             var response = categoryService.CreateCategory(request);
             return Ok(new { message = localizer["Success"].Value});
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+        {
+            var response = await categoryService.DeleteCategoryAsync(id);
+            if (!response.Success)
+            {
+                if(response.Message.Contains("Not Found"))
+                {
+                    return NotFound(response);
+                }
+                return BadRequest(response);
+            }
+            return Ok(response);
         }
     }
 }

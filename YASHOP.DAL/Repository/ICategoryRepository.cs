@@ -12,5 +12,7 @@ namespace YASHOP.DAL.Repository
     {
          List<Category> GetAll();
          Category Create(Category request);
+         Task<Category?> FindByIdAsync(int id);
+         Task DeleteAsync(Category category);
     }
 }

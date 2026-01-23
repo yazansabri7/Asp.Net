@@ -30,5 +30,17 @@ namespace YASHOP.DAL.Repository
             context.SaveChanges();
             return request;
         }
+
+        public async Task<Category?> FindByIdAsync(int id)
+        {
+            var category =await context.Categories.Include(c => c.Translations).FirstOrDefaultAsync(x => x.Id == id);
+            return category;
+
+        }
+        public async Task DeleteAsync(Category category)
+        {
+            context.Categories.Remove(category);
+            await context.SaveChangesAsync();
+        }
     }
 }
