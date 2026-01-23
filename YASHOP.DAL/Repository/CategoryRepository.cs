@@ -42,5 +42,11 @@ namespace YASHOP.DAL.Repository
             context.Categories.Remove(category);
             await context.SaveChangesAsync();
         }
+        public async Task<Category?> UpdateAsync(Category category)
+        {
+            context.Update(category);
+            await context.SaveChangesAsync();
+            return category;
+        }
     }
 }

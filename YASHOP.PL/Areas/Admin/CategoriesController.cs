@@ -24,7 +24,7 @@ namespace YASHOP.PL.Areas.Admin
         }
 
         [HttpPost("")]
-        public IActionResult CreateCategory(CategoryRequest request)
+        public IActionResult CreateCategory([FromBody] CategoryRequest request)
         {
             var response = categoryService.CreateCategory(request);
             return Ok(new { message = localizer["Success"].Value});
@@ -36,6 +36,20 @@ namespace YASHOP.PL.Areas.Admin
             if (!response.Success)
             {
                 if(response.Message.Contains("Not Found"))
+                {
+                    return NotFound(response);
+                }
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateCategory([FromBody] CategoryRequest request , [FromRoute] int id)
+        {
+            var response = await categoryService.UpdateCategoryAsync(request, id);
+            if(!response.Success)
+            {
+                if (response.Message.Contains("Not Found"))
                 {
                     return NotFound(response);
                 }

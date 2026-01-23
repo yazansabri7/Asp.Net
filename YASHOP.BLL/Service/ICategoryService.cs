@@ -15,6 +15,7 @@ namespace YASHOP.BLL.Service
        List<CategoryResponse> GetAllCategories();
        CategoryResponse CreateCategory(CategoryRequest category);
        Task<BaseResponse> DeleteCategoryAsync(int id);
+       Task<BaseResponse> UpdateCategoryAsync(CategoryRequest request, int id);
 
 
     }
