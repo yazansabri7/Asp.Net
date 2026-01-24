@@ -23,6 +23,13 @@ namespace YASHOP.PL.Areas.Admin
             this.categoryService = categoryService;
             this.localizer = localizer;
         }
+        [HttpGet("")]
+        public async Task<IActionResult> Index()
+        {
+            var response = await categoryService.GetAllCategoriesForAdmin();
+            return Ok(response);
+        }
+
 
         [HttpPost("")]
         public async Task<IActionResult> CreateCategory([FromBody] CategoryRequest request)

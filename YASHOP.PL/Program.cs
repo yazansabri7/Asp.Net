@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
+using YASHOP.BLL.MapsterConfigurations;
 using YASHOP.BLL.Service;
 using YASHOP.DAL.Data;
 using YASHOP.DAL.Models;
@@ -92,6 +93,8 @@ namespace YASHOP.PL
 
             AppConfigurations.Config(builder.Services);
 
+            //Add Mapster Configurations
+            MapsterConfig.MapsterConfigRegister();
 
 
 

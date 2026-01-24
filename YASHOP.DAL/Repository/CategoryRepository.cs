@@ -20,7 +20,7 @@ namespace YASHOP.DAL.Repository
 
         public async Task<List<Category>> GetAllAsync()
         {
-            var response = await context.Categories.Include(c => c.Translations).ToListAsync();
+            var response = await context.Categories.Include(c => c.Translations).Include(x=>x.User).ToListAsync();
             return response;
         }
 

@@ -22,9 +22,9 @@ namespace YASHOP.PL.Areas.User
         }
 
         [HttpGet("")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index([FromQuery] string lang = "en")
         {
-            var response = await categoryService.GetAllCategories();
+            var response = await categoryService.GetAllCategoriesForUser(lang);
             return Ok(new { message = localizer["Success"].Value, response });
         }
 

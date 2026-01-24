@@ -37,7 +37,26 @@ namespace YASHOP.DAL.Data
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
 
         }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker.Entries<BaseModel>();
+            var CurrentUserId = httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Property(x => x.CreatedAt).CurrentValue = DateTime.UtcNow;
+                    entry.Property(x => x.CreatedBy).CurrentValue = CurrentUserId;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Property(x => x.UpdatedAt).CurrentValue = DateTime.UtcNow;
+                    entry.Property(x => x.UpdatedBy).CurrentValue = CurrentUserId;
+                }
 
+            }
+            return base.SaveChangesAsync(cancellationToken);
+        }
         public override int SaveChanges()
         {
             var entries = ChangeTracker.Entries<BaseModel>();

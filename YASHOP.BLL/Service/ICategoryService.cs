@@ -12,7 +12,8 @@ namespace YASHOP.BLL.Service
     public interface ICategoryService
     {
 
-       Task<List<CategoryResponse>> GetAllCategories();
+       Task<List<CategoryResponse>> GetAllCategoriesForAdmin();
+       Task<List<CategoryUserResponse>> GetAllCategoriesForUser(string lang = "en");
        Task<CategoryResponse> CreateCategory(CategoryRequest category);
        Task<BaseResponse> DeleteCategoryAsync(int id);
        Task<BaseResponse> UpdateCategoryAsync(CategoryRequest request, int id);

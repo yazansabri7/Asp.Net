@@ -20,10 +20,17 @@ namespace YASHOP.BLL.Service
             this.categoryRepository = categoryRepository;
         }
 
-        public async Task<List<CategoryResponse>> GetAllCategories()
+        public async Task<List<CategoryResponse>> GetAllCategoriesForAdmin()
         {
             var categories = await categoryRepository.GetAllAsync();
             var response = categories.Adapt<List<CategoryResponse>>();
+            return response;
+        }
+        public async Task<List<CategoryUserResponse>> GetAllCategoriesForUser(string lang = "en")
+        {
+            var categories = await categoryRepository.GetAllAsync();
+            // Send Parrameter to Mapster Config
+            var response = categories.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<CategoryUserResponse>>();
             return response;
         }
 
