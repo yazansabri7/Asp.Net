@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Threading.Tasks;
 using YASHOP.BLL.Service;
 using YASHOP.PL.Resourses;
 
@@ -21,9 +22,9 @@ namespace YASHOP.PL.Areas.User
         }
 
         [HttpGet("")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var response = categoryService.GetAllCategories();
+            var response = await categoryService.GetAllCategories();
             return Ok(new { message = localizer["Success"].Value, response });
         }
 

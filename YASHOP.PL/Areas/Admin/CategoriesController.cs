@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using System.Threading.Tasks;
 using YASHOP.BLL.Service;
 using YASHOP.DAL.DTO.Request;
 using YASHOP.PL.Resourses;
@@ -24,9 +25,9 @@ namespace YASHOP.PL.Areas.Admin
         }
 
         [HttpPost("")]
-        public IActionResult CreateCategory([FromBody] CategoryRequest request)
+        public async Task<IActionResult> CreateCategory([FromBody] CategoryRequest request)
         {
-            var response = categoryService.CreateCategory(request);
+            var response = await categoryService.CreateCategory(request);
             return Ok(new { message = localizer["Success"].Value});
         }
         [HttpDelete("{id}")]
@@ -48,6 +49,20 @@ namespace YASHOP.PL.Areas.Admin
         {
             var response = await categoryService.UpdateCategoryAsync(request, id);
             if(!response.Success)
+            {
+                if (response.Message.Contains("Not Found"))
+                {
+                    return NotFound(response);
+                }
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
+        [HttpPatch("toggle-status/{id}")]
+        public async Task<IActionResult> ToggleStatus([FromRoute] int id)
+        {
+            var response = await categoryService.ToggleStatusAsync(id);
+            if (!response.Success)
             {
                 if (response.Message.Contains("Not Found"))
                 {

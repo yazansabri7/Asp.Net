@@ -18,16 +18,16 @@ namespace YASHOP.DAL.Repository
             this.context = context;
         }
 
-        public List<Category> GetAll()
+        public async Task<List<Category>> GetAllAsync()
         {
-            var response = context.Categories.Include(c => c.Translations).ToList();
+            var response = await context.Categories.Include(c => c.Translations).ToListAsync();
             return response;
         }
 
-        public Category Create(Category request)
+        public async Task<Category> CreateAsync(Category request)
         {
-            context.Categories.Add(request);
-            context.SaveChanges();
+            await context.Categories.AddAsync(request);
+            await context.SaveChangesAsync();
             return request;
         }
 

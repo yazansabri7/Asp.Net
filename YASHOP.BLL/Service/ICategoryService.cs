@@ -11,11 +11,12 @@ namespace YASHOP.BLL.Service
 {
     public interface ICategoryService
     {
-        
-       List<CategoryResponse> GetAllCategories();
-       CategoryResponse CreateCategory(CategoryRequest category);
+
+       Task<List<CategoryResponse>> GetAllCategories();
+       Task<CategoryResponse> CreateCategory(CategoryRequest category);
        Task<BaseResponse> DeleteCategoryAsync(int id);
        Task<BaseResponse> UpdateCategoryAsync(CategoryRequest request, int id);
+       Task<BaseResponse> ToggleStatusAsync(int id);
 
 
     }

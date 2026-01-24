@@ -10,8 +10,8 @@ namespace YASHOP.DAL.Repository
 {
     public interface ICategoryRepository
     {
-         List<Category> GetAll();
-         Category Create(Category request);
+         Task<List<Category>> GetAllAsync();
+         Task<Category> CreateAsync(Category request);
          Task<Category?> FindByIdAsync(int id);
          Task DeleteAsync(Category category);
          Task<Category?> UpdateAsync(Category category);

@@ -12,7 +12,7 @@ using YASHOP.DAL.Repository;
 
 namespace YASHOP.BLL.Service
 {
-    public class CategoryService : ICategoryService 
+    public class CategoryService : ICategoryService
     {
         public ICategoryRepository categoryRepository { get; }
         public CategoryService(ICategoryRepository categoryRepository)
@@ -20,21 +20,21 @@ namespace YASHOP.BLL.Service
             this.categoryRepository = categoryRepository;
         }
 
-        public List<CategoryResponse> GetAllCategories()
+        public async Task<List<CategoryResponse>> GetAllCategories()
         {
-            var categories = categoryRepository.GetAll();
+            var categories = await categoryRepository.GetAllAsync();
             var response = categories.Adapt<List<CategoryResponse>>();
             return response;
         }
 
-        public CategoryResponse CreateCategory(CategoryRequest category)
+        public async Task<CategoryResponse> CreateCategory(CategoryRequest category)
         {
-            var categoryRequest= category.Adapt<Category>();
-            var Request = categoryRepository.Create(categoryRequest);
+            var categoryRequest = category.Adapt<Category>();
+            var Request = await categoryRepository.CreateAsync(categoryRequest);
             return Request.Adapt<CategoryResponse>();
         }
 
-       public async Task<BaseResponse> DeleteCategoryAsync(int id)
+        public async Task<BaseResponse> DeleteCategoryAsync(int id)
         {
             try
             {
@@ -48,30 +48,31 @@ namespace YASHOP.BLL.Service
                         Message = "Category Not Found",
                     };
                 }
-                    await categoryRepository.DeleteAsync(category);
-                    return new BaseResponse()
-                    {
-                        Success = true,
-                        Message = "Category deleted successfully",
+                await categoryRepository.DeleteAsync(category);
+                return new BaseResponse()
+                {
+                    Success = true,
+                    Message = "Category deleted successfully",
 
-                    };
-            }catch(Exception ex)
+                };
+            }
+            catch (Exception ex)
             {
                 return new BaseResponse()
                 {
                     Success = false,
                     Message = "Can't Delete Category",
-                    Errors = new List<string> { ex.Message}
+                    Errors = new List<string> { ex.Message }
                 };
             }
         }
 
-       public async Task<BaseResponse> UpdateCategoryAsync(CategoryRequest request , int id)
+        public async Task<BaseResponse> UpdateCategoryAsync(CategoryRequest request, int id)
         {
             try
             {
                 var category = await categoryRepository.FindByIdAsync(id);
-                if(category is null)
+                if (category is null)
                 {
                     return new BaseResponse()
                     {
@@ -79,12 +80,12 @@ namespace YASHOP.BLL.Service
                         Message = "Category Not Found",
                     };
                 }
-                if(request.Translations != null)
+                if (request.Translations != null)
                 {
-                    foreach(var translation in request.Translations)
+                    foreach (var translation in request.Translations)
                     {
                         var existing = category.Translations.FirstOrDefault(t => t.Language == translation.Language);
-                        if(existing != null)
+                        if (existing != null)
                         {
                             existing.Name = translation.Name;
                         }
@@ -93,7 +94,7 @@ namespace YASHOP.BLL.Service
                             return new BaseResponse()
                             {
                                 Success = false,
-                                Message =$" Language {translation.Language} Not Supported"
+                                Message = $" Language {translation.Language} Not Supported"
                             };
                         }
                     }
@@ -116,5 +117,41 @@ namespace YASHOP.BLL.Service
                 };
             }
         }
+        public async Task<BaseResponse> ToggleStatusAsync(int id)
+        {
+            try
+            {
+
+
+                var category = await categoryRepository.FindByIdAsync(id);
+                if (category is null)
+                {
+                    return new BaseResponse()
+                    {
+                        Success = false,
+                        Message = "Category Not Found",
+                    };
+                }
+                category.Status = category.Status == Status.active ? Status.InActive : Status.active;
+                await categoryRepository.UpdateAsync(category);
+                return new BaseResponse()
+                {
+                    Success = true,
+                    Message = "Category status toggled successfully",
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse()
+                {
+                    Success = false,
+                    Message = "Can't Toggle Category Status",
+                    Errors = new List<string> { ex.Message }
+                };
+            }
+        }
     }
-}
+
+        
+ }
+    
