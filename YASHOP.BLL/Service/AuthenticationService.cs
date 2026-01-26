@@ -170,7 +170,7 @@ namespace YASHOP.BLL.Service
                 issuer: configuration["Jwt:Issuer"],
                 audience: configuration["Jwt:Audience"],
                 claims: userClaims,
-                expires: DateTime.UtcNow.AddMinutes(5),
+                expires: DateTime.UtcNow.AddMinutes(60),
                 signingCredentials: creds 
                 );
             return new  JwtSecurityTokenHandler().WriteToken(token);

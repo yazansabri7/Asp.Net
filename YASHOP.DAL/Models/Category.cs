@@ -10,5 +10,6 @@ namespace YASHOP.DAL.Models
     {
      
         public List<CategoryTranslation> Translations { get; set; }
+        public List<ProductTranslation> Products { get; set; }
     }
 }

@@ -20,4 +20,8 @@
     <ProjectReference Include="..\YASHOP.BLL\YASHOP.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="images\" />
+  </ItemGroup>
+
 </Project>
