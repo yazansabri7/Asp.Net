@@ -11,5 +11,6 @@ namespace YASHOP.BLL.Service
     public interface IProductService
     {
         Task<ProductResponse> CreateProduct(ProductRequest request);
+        Task<List<ProductResponse>> GetAllProductsForAdminAsync();
     }
 }

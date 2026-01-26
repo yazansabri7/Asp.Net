@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,11 @@ namespace YASHOP.DAL.Repository
              await context.Products.AddAsync(request);
             await context.SaveChangesAsync();
             return request;
+        }
+
+        public async Task<List<Product>> GetAllForAdminAsync()
+        {
+            return await context.Products.Include(p=>p.Translations).Include(p=>p.User).ToListAsync();
         }
     }
 }

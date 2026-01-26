@@ -21,6 +21,11 @@ namespace YASHOP.BLL.Service
             this.productRepository = productRepository;
             this.fileService = fileService;
         }
+        public async Task<List<ProductResponse>> GetAllProductsForAdminAsync()
+        {
+            var products = await productRepository.GetAllForAdminAsync();
+            return products.Adapt<List<ProductResponse>>();
+        }
 
 
         public async Task<ProductResponse> CreateProduct(ProductRequest request)

@@ -21,11 +21,18 @@ namespace YASHOP.PL.Areas.Admin
             this.productService = productService;
             this.localizer = localizer;
         }
+        [HttpGet("")]
+        public async Task<IActionResult> Index()
+        {
+            var response = await productService.GetAllProductsForAdminAsync();
+            return Ok(response);
+        }
         [HttpPost("")]
         public async Task<IActionResult> Create([FromForm] ProductRequest request)
         {
             var response = await productService.CreateProduct(request);
             return Ok(new {message = localizer["Success"].Value , response  });
         }
+        
     }
 }

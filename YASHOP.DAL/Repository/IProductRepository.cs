@@ -10,5 +10,6 @@ namespace YASHOP.DAL.Repository
     public interface IProductRepository
     {
         Task<Product> AddAsync(Product request);
+        Task<List<Product>> GetAllForAdminAsync();
     }
 }
