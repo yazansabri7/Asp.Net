@@ -14,6 +14,8 @@ namespace YASHOP.DAL.Models
         public string? Street { get; set; }
         public string? CodeResetPassword { get; set; }
         public DateTime? ExpireCodeResetPassword { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpireTime { get; set; }
 
 
     }

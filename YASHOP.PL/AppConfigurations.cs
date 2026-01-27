@@ -18,6 +18,7 @@ namespace YASHOP.PL
             Services.AddTransient<IFileService , FileService>();
             Services.AddScoped<IProductService, ProductService>();
             Services.AddScoped<IProductRepository, ProductRepository>();
+            Services.AddScoped<ITokenService, TokenService>();
         }
     }
 }

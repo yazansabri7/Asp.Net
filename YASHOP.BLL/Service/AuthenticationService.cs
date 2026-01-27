@@ -18,17 +18,18 @@ namespace YASHOP.BLL.Service
 {
     public class AuthenticationService : IAuthenticationService
     {
+        private readonly ITokenService tokenService;
+
         public UserManager<ApplicationUser> userManager { get; }
-        public IConfiguration configuration { get; }
         public IEmailSender emailSender { get; }
         public SignInManager<ApplicationUser> signInManager { get; }
 
-        public AuthenticationService(UserManager<ApplicationUser> userManager , IConfiguration configuration , 
+        public AuthenticationService(UserManager<ApplicationUser> userManager , ITokenService tokenService ,
             IEmailSender emailSender , 
             SignInManager<ApplicationUser> signInManager)
         {
             this.userManager = userManager;
-            this.configuration = configuration;
+            this.tokenService = tokenService;
             this.emailSender = emailSender;
             this.signInManager = signInManager;
         }
@@ -86,7 +87,7 @@ namespace YASHOP.BLL.Service
                 {
                     Success = true,
                     Message = "Login Successfully",
-                    AccessToken = await GenerateAccessToken(user)
+                    AccessToken = await tokenService.GenerateAccessToken(user)
                 };
             }
             catch(Exception ex)
@@ -154,27 +155,7 @@ namespace YASHOP.BLL.Service
             }
             return true;
         }
-        private async Task<string> GenerateAccessToken(ApplicationUser user)
-        {
-            var roles = await userManager.GetRolesAsync(user);
-            var userClaims = new List<Claim>()
-            {
-                new Claim(ClaimTypes.NameIdentifier,user.Id),
-                new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.Name,user.UserName),
-                new Claim(ClaimTypes.Role,string.Join(",",roles))
-            };
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var token = new JwtSecurityToken(
-                issuer: configuration["Jwt:Issuer"],
-                audience: configuration["Jwt:Audience"],
-                claims: userClaims,
-                expires: DateTime.UtcNow.AddMinutes(60),
-                signingCredentials: creds 
-                );
-            return new  JwtSecurityTokenHandler().WriteToken(token);
-        }
+       
         public async Task<ForgetPasswordResponse> RequsetPasswordReset(ForgetPasswordRequest request)
         {
             var user = await userManager.FindByEmailAsync(request.Email);
