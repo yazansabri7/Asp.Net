@@ -19,6 +19,7 @@ namespace YASHOP.DAL.Data
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductTranslation> ProductTranslations { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options , 

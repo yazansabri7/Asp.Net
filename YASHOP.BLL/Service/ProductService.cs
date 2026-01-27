@@ -24,6 +24,7 @@ namespace YASHOP.BLL.Service
         public async Task<List<ProductResponse>> GetAllProductsForAdminAsync()
         {
             var products = await productRepository.GetAllForAdminAsync();
+            
             return products.Adapt<List<ProductResponse>>();
         }
 
@@ -35,8 +36,22 @@ namespace YASHOP.BLL.Service
             {
                 product.MainImage = await fileService.UploadAsync(request.MainImage);
             }
+            if(request.SubImages != null)
+            {
+                product.SubImages = new List<ProductImage>();
+                foreach (var file in request.SubImages)
+                {
+                    var imagePath = await fileService.UploadAsync(file);
+                    product.SubImages.Add(new ProductImage
+                    {
+                        ImageName = imagePath
+
+                    });
+                }
+            }
 
             await productRepository.AddAsync(product);
+            
             return product.Adapt<ProductResponse>();
         }
     }
