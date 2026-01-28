@@ -12,5 +12,7 @@ namespace YASHOP.BLL.Service
     {
         Task<ProductResponse> CreateProduct(ProductRequest request);
         Task<List<ProductResponse>> GetAllProductsForAdminAsync();
+        Task<List<ProductUserResponse>> GetAllProductsForUserAsync(string lang = "en");
+        Task<ProductUserDetails> GetProductDetailsForUserAsync(int id, string lang = "en");
     }
 }

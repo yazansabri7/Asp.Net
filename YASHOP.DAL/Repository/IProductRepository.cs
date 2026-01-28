@@ -11,5 +11,7 @@ namespace YASHOP.DAL.Repository
     {
         Task<Product> AddAsync(Product request);
         Task<List<Product>> GetAllForAdminAsync();
+        Task<List<Product>> GetAllForUserAsync();
+        Task<Product?> FindByIdAsync(int id);
     }
 }

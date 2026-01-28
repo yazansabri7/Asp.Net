@@ -27,6 +27,13 @@ namespace YASHOP.BLL.Service
             
             return products.Adapt<List<ProductResponse>>();
         }
+        public async Task<List<ProductUserResponse>> GetAllProductsForUserAsync(string lang ="en")
+        {
+            var products = await productRepository.GetAllForUserAsync();
+            var response = products.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponse>>();
+            return response;
+
+        }
 
 
         public async Task<ProductResponse> CreateProduct(ProductRequest request)
@@ -53,6 +60,13 @@ namespace YASHOP.BLL.Service
             await productRepository.AddAsync(product);
             
             return product.Adapt<ProductResponse>();
+        }
+
+        public async Task<ProductUserDetails> GetProductDetailsForUserAsync(int id , string lang ="en")
+        {
+            var product = await productRepository.FindByIdAsync(id);
+            var response = product.BuildAdapter().AddParameters("lang",lang).AdaptToType<ProductUserDetails>();
+            return response;
         }
     }
 }

@@ -25,6 +25,27 @@ namespace YASHOP.BLL.MapsterConfigurations
                 .Map(dest => dest.MainImage, source => $"https://localhost:7220/images/{source.MainImage}")
                 .Map(dest => dest.CreatedBy, source => source.User.UserName);
 
+            TypeAdapterConfig<Product, ProductUserResponse>.NewConfig()
+                .Map(dest => dest.Name, source => source.Translations
+                .Where(p => p.Language == MapContext.Current.Parameters["lang"].ToString())
+                .Select(p => p.Name).FirstOrDefault())
+                .Map(dest => dest.MainImage, source => $"https://localhost:7220/images/{source.MainImage}");
+
+
+            TypeAdapterConfig<Product, ProductUserDetails>.NewConfig()
+                .Map(dest => dest.Name, source => source.Translations
+                .Where(p => p.Language == MapContext.Current.Parameters["lang"].ToString())
+                .Select(p => p.Name).FirstOrDefault())
+                .Map(dest => dest.MainImage, source => $"https://localhost:7220/images/{source.MainImage}")
+                .Map(dest => dest.Description, source => source.Translations
+                .Where(p => p.Language == MapContext.Current.Parameters["lang"].ToString())
+                .Select(p => p.Description).FirstOrDefault());
+                
+
+
+
+
+
         }
     }
 }

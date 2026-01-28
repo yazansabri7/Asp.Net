@@ -27,5 +27,14 @@ namespace YASHOP.DAL.Repository
         {
             return await context.Products.Include(p=>p.Translations).Include(p=>p.User).ToListAsync();
         }
+        public async Task<List<Product>> GetAllForUserAsync()
+        {
+            return await context.Products.Include(p=>p.Translations).ToListAsync();
+        }
+        public async Task<Product?> FindByIdAsync(int id)
+        {
+            return await context.Products.Include(p => p.Translations)
+                 .FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }
