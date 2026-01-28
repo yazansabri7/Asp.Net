@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -83,11 +84,19 @@ namespace YASHOP.BLL.Service
                         Message = "Invalid Password",
                     };
                 }
+                var accessToken = await tokenService.GenerateAccessToken(user);
+                var refreshToken = tokenService.GenerateRefreshToken();
+                user.RefreshToken = refreshToken;
+                user.RefreshTokenExpireTime = DateTime.UtcNow.AddDays(7);
+
+                await userManager.UpdateAsync(user);
+
                 return new LoginResponse()
                 {
                     Success = true,
                     Message = "Login Successfully",
-                    AccessToken = await tokenService.GenerateAccessToken(user)
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken
                 };
             }
             catch(Exception ex)
@@ -227,6 +236,36 @@ namespace YASHOP.BLL.Service
                 Message = "Password Reset Successfully"
             };
 
+        }
+
+        public async Task<LoginResponse> RefreshTokenAsync(TokenApiModel request)
+        {
+            var accessToken = request.AccessToken;
+            var refreshToken = request.RefreshToken;
+            var principal = tokenService.GetPrincipalFromExpiredToken(accessToken);
+            var userName = principal.Identity.Name;
+
+            //var user = await userManager.FindByNameAsync(userName);
+            var user = await userManager.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpireTime <= DateTime.UtcNow)
+            {
+                return new LoginResponse()
+                {
+                    Success = false,
+                    Message = "Invalid User Request"
+                };
+            }
+            var newAccessToken = await tokenService.GenerateAccessToken(user);
+            var newRefreshToken = tokenService.GenerateRefreshToken();
+            user.RefreshToken = newRefreshToken;
+            await userManager.UpdateAsync(user);
+            return new LoginResponse()
+            {
+                Success = true,
+                Message = "Refreshed Token Successfully",
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken
+            };
         }
      }
 }

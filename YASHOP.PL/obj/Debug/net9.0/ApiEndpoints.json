@@ -173,6 +173,22 @@
   },
   {
     "ContainingType": "YASHOP.PL.Areas.Identity.AccountController",
+    "Method": "RefreshToken",
+    "RelativePath": "api/auth/Account/RefreshToken",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "YASHOP.DAL.DTO.Request.TokenApiModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "YASHOP.PL.Areas.Identity.AccountController",
     "Method": "Register",
     "RelativePath": "api/auth/Account/Register",
     "HttpMethod": "POST",

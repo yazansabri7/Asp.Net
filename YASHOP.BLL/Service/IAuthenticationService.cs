@@ -15,5 +15,6 @@ namespace YASHOP.BLL.Service
         Task<bool> ConfirmEmailAsync(string token, string userId);
         Task<ForgetPasswordResponse> RequsetPasswordReset(ForgetPasswordRequest request);
         Task<ResetPasswordResppnse> ResetPassword(ResetPasswordRequest request);
+        Task<LoginResponse> RefreshTokenAsync(TokenApiModel request);
     }
 }
