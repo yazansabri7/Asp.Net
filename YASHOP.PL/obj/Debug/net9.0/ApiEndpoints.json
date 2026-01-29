@@ -252,6 +252,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "YASHOP.PL.Areas.User.CartsController",
+    "Method": "GetItems",
+    "RelativePath": "api/Carts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "YASHOP.PL.Areas.User.CategoriesController",
     "Method": "Index",
     "RelativePath": "api/Categories",

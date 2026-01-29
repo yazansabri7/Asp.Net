@@ -25,5 +25,12 @@ namespace YASHOP.PL.Areas.User
             var result = await cartService.AddToCartAsync(userId, request);
             return Ok(result);
         }
+        [HttpGet("")]
+        public async Task<IActionResult> GetItems()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = await cartService.GetItemsAsync(userId);
+            return Ok(result);
+        }
     }
 }

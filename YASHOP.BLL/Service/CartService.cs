@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,14 @@ namespace YASHOP.BLL.Service
     {
         private readonly ICartRepository cartRepository;
         private readonly IProductRepository productRepository;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public CartService(ICartRepository cartRepository , IProductRepository productRepository) 
+        public CartService(ICartRepository cartRepository , IProductRepository productRepository ,
+            UserManager<ApplicationUser> userManager) 
         {
             this.cartRepository = cartRepository;
             this.productRepository = productRepository;
+            this.userManager = userManager;
         }
         public async Task<BaseResponse> AddToCartAsync(string UserId, AddToCartRequest request)
         {
@@ -49,6 +53,29 @@ namespace YASHOP.BLL.Service
                 Message = "Product added to cart successfully"
             };
 
+        }
+
+        public async Task<CartSummaryResponse> GetItemsAsync(string userId, string lang = "en")
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if(user == null)
+            {
+                return null;
+            }
+            var cartItems = await cartRepository.GetItemsAsync(userId);
+            var items = cartItems.Select(c=>new CartResponse
+            {
+                PoductId = c.ProductId,
+                ProductName = c.Product.Translations.FirstOrDefault(t=>t.Language==lang).Name,
+                Description = c.Product.Translations.FirstOrDefault(t=>t.Language==lang).Description,
+                Count = c.Count,
+                Price = c.Product.Price,
+
+            }).ToList();
+            return new CartSummaryResponse{
+                Items = items
+            };
+            
         }
     }
 }

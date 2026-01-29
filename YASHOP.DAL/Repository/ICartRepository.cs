@@ -10,5 +10,6 @@ namespace YASHOP.DAL.Repository
     public interface ICartRepository
     {
         Task<Cart> CreateAsync(Cart request);
+        Task<List<Cart>> GetItemsAsync(string userId);
     }
 }
