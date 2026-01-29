@@ -1,0 +1,54 @@
+﻿using Mapster;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using YASHOP.DAL.DTO.Request;
+using YASHOP.DAL.DTO.Response;
+using YASHOP.DAL.Models;
+using YASHOP.DAL.Repository;
+
+namespace YASHOP.BLL.Service
+{
+    public class CartService : ICartService
+    {
+        private readonly ICartRepository cartRepository;
+        private readonly IProductRepository productRepository;
+
+        public CartService(ICartRepository cartRepository , IProductRepository productRepository) 
+        {
+            this.cartRepository = cartRepository;
+            this.productRepository = productRepository;
+        }
+        public async Task<BaseResponse> AddToCartAsync(string UserId, AddToCartRequest request)
+        {
+            var product = await productRepository.FindByIdAsync(request.ProductId);
+            if (product == null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Product not found"
+                };
+            }
+            if(product.Quantity < request.Count)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Insufficient product quantity"
+                };
+            }
+            var cart = request.Adapt<Cart>();
+            cart.UserId = UserId;
+            await cartRepository.CreateAsync(cart);
+            return new BaseResponse
+            {
+                Success = true,
+                Message = "Product added to cart successfully"
+            };
+
+        }
+    }
+}

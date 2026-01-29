@@ -20,6 +20,7 @@ namespace YASHOP.DAL.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductTranslation> ProductTranslations { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options , 
@@ -39,10 +40,17 @@ namespace YASHOP.DAL.Data
             builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens");
+
             builder.Entity<Category>()
                 .HasOne(c=>c.User)
                 .WithMany()
                 .HasForeignKey(c=>c.CreatedBy)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<Cart>()
+                .HasOne(c=>c.User)
+                .WithMany()
+                .HasForeignKey(c=>c.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
         }

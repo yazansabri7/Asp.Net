@@ -39,8 +39,10 @@ namespace YASHOP.BLL.MapsterConfigurations
                 .Map(dest => dest.MainImage, source => $"https://localhost:7220/images/{source.MainImage}")
                 .Map(dest => dest.Description, source => source.Translations
                 .Where(p => p.Language == MapContext.Current.Parameters["lang"].ToString())
-                .Select(p => p.Description).FirstOrDefault());
-                
+                .Select(p => p.Description).FirstOrDefault())
+                .Map(dest => dest.SubImages, source => source.SubImages.Select(s=> $"https://localhost:7220/images/{s.ImageName}") );
+
+
 
 
 

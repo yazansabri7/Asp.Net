@@ -33,7 +33,7 @@ namespace YASHOP.DAL.Repository
         }
         public async Task<Product?> FindByIdAsync(int id)
         {
-            return await context.Products.Include(p => p.Translations)
+            return await context.Products.Include(p => p.Translations).Include(p => p.SubImages)
                  .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
