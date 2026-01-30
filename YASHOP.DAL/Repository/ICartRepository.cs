@@ -11,5 +11,7 @@ namespace YASHOP.DAL.Repository
     {
         Task<Cart> CreateAsync(Cart request);
         Task<List<Cart>> GetItemsAsync(string userId);
+        Task<Cart?> GetCartItemAsync(string userId, int productId);
+        Task<Cart> UpdateAsync(Cart cart);
     }
 }

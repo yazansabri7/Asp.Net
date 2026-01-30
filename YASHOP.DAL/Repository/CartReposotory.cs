@@ -32,5 +32,17 @@ namespace YASHOP.DAL.Repository
                 .ToListAsync();
             return items;
         }
+        public async Task<Cart?> GetCartItemAsync(string userId , int productId)
+        {
+            return await context.Carts
+                .Include(c => c.Product)
+                .FirstOrDefaultAsync(c =>c.UserId == userId && c.ProductId == productId);
+        }
+        public async Task<Cart> UpdateAsync(Cart cart)
+        {
+            context.Update(cart);
+            await context.SaveChangesAsync();
+            return cart;
+        }
     }
 }

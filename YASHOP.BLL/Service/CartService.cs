@@ -44,14 +44,23 @@ namespace YASHOP.BLL.Service
                     Message = "Insufficient product quantity"
                 };
             }
-            var cart = request.Adapt<Cart>();
-            cart.UserId = UserId;
-            await cartRepository.CreateAsync(cart);
-            return new BaseResponse
+            var cartItem = await cartRepository.GetCartItemAsync(UserId, request.ProductId);
+            if(cartItem is not null)
             {
-                Success = true,
-                Message = "Product added to cart successfully"
-            };
+                cartItem.Count = cartItem.Count + request.Count;
+                await cartRepository.UpdateAsync(cartItem);
+            }
+            else
+            {
+                    var cart = request.Adapt<Cart>();
+                cart.UserId = UserId;
+                await cartRepository.CreateAsync(cart);
+            }
+                return new BaseResponse
+                {
+                    Success = true,
+                    Message = "Product added to cart successfully"
+                };
 
         }
 
