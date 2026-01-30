@@ -262,6 +262,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "YASHOP.PL.Areas.User.CartsController",
+    "Method": "ClearCart",
+    "RelativePath": "api/Carts",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "YASHOP.PL.Areas.User.CategoriesController",
     "Method": "Index",
     "RelativePath": "api/Categories",

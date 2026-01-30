@@ -86,5 +86,16 @@ namespace YASHOP.BLL.Service
             };
             
         }
+        public async Task<BaseResponse> ClearCartAsync(string userId)
+        {
+            
+            await cartRepository.DeleteCartAsync(userId);
+            return new BaseResponse
+            {
+                Success = true,
+                Message = "Cart cleared successfully"
+            };
+
+        }
     }
 }

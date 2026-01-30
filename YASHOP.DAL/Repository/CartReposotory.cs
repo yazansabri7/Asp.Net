@@ -44,5 +44,13 @@ namespace YASHOP.DAL.Repository
             await context.SaveChangesAsync();
             return cart;
         }
+        public async Task DeleteCartAsync(string userId)
+        {
+            var items = await context.Carts.Where(c => c.UserId == userId)
+                .ToListAsync();
+            context.RemoveRange(items);
+            await context.SaveChangesAsync();
+
+        }
     }
 }

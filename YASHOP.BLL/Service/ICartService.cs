@@ -12,5 +12,6 @@ namespace YASHOP.BLL.Service
     {
         Task<BaseResponse> AddToCartAsync(string UserId, AddToCartRequest request);
         Task<CartSummaryResponse> GetItemsAsync(string userId , string lang = "en");
+        Task<BaseResponse> ClearCartAsync(string userId);
     }
 }
