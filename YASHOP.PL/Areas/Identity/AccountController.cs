@@ -18,9 +18,9 @@ namespace YASHOP.PL.Areas.Identity
 
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request )
         {
-            var result = await authenticationService.RegisterAsync(request);
+            var result = await authenticationService.RegisterAsync(request , Request);
             if (!result.Success)
             {
                 return BadRequest(result);

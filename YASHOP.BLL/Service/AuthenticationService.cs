@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -110,7 +111,7 @@ namespace YASHOP.BLL.Service
             }
         }
 
-        public async Task<RegisterResponse> RegisterAsync(RegisterRequest registerRequest)
+        public async Task<RegisterResponse> RegisterAsync(RegisterRequest registerRequest , HttpRequest request)
         {
             try
             {
@@ -130,7 +131,7 @@ namespace YASHOP.BLL.Service
                 await userManager.AddToRoleAsync(user, "User");
                 var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
                 token = Uri.EscapeDataString(token);
-                var EmailUrl = $"https://localhost:7220/api/auth/Account/ConfirmEmail?token={token}&userId={user.Id}";
+                var EmailUrl = $"{request.Scheme}//{request.Host}/api/auth/Account/ConfirmEmail?token={token}&userId={user.Id}";
                 await emailSender.SendEmailAsync(user.Email , "Welcome" , $"<h1> Welcome .. {user.UserName} </h1> " +
                     $"<a href='{EmailUrl}'>Confirm Email</a>");
                 return new RegisterResponse()

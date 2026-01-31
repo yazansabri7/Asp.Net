@@ -288,6 +288,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "YASHOP.PL.Areas.User.CheckoutsController",
+    "Method": "Payment",
+    "RelativePath": "api/Checkouts",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "YASHOP.DAL.DTO.Request.CheckoutRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "YASHOP.PL.Areas.User.ProductsController",
     "Method": "Index",
     "RelativePath": "api/Products",

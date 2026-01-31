@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
+using YASHOP.BLL;
 using YASHOP.BLL.MapsterConfigurations;
 using YASHOP.BLL.Service;
 using YASHOP.DAL.Data;
@@ -27,6 +29,9 @@ namespace YASHOP.PL
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            // Configure Stripe settings
+            builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
             //connect Database
             builder.Services.AddDbContext<ApplicationDbContext>(options =>

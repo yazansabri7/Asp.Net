@@ -21,6 +21,7 @@ namespace YASHOP.PL
             Services.AddScoped<ITokenService, TokenService>();
             Services.AddScoped<ICartRepository, CartReposotory>();
             Services.AddScoped<ICartService, CartService>();
+            Services.AddScoped<ICheckoutService, CheckoutService>();
         }
     }
 }

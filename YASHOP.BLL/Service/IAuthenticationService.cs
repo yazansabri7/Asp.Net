@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace YASHOP.BLL.Service
 {
     public interface IAuthenticationService
     {
-        Task<RegisterResponse> RegisterAsync(RegisterRequest registerRequest);
+        Task<RegisterResponse> RegisterAsync(RegisterRequest registerRequest , HttpRequest request);
         Task<LoginResponse> LoginAsync(LoginRequest loginRequest);
         Task<bool> ConfirmEmailAsync(string token, string userId);
         Task<ForgetPasswordResponse> RequsetPasswordReset(ForgetPasswordRequest request);
