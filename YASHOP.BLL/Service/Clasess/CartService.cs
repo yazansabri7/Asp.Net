@@ -90,7 +90,7 @@ namespace YASHOP.BLL.Service.Clasess
         public async Task<BaseResponse> ClearCartAsync(string userId)
         {
             
-            await cartRepository.DeleteCartAsync(userId);
+            await cartRepository.ClearCartAsync(userId);
             return new BaseResponse
             {
                 Success = true,

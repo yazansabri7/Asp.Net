@@ -21,16 +21,19 @@ namespace YASHOP.BLL.Service.Clasess
         private readonly IOrderRepository orderRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailSender emailSender;
+        private readonly IOrderItemRepository orderItemRepository;
 
         public CheckoutService(ICartRepository cartRepository 
             , IOrderRepository orderRepository
             , UserManager<ApplicationUser> userManager
-            , IEmailSender emailSender) 
+            , IEmailSender emailSender
+            ,IOrderItemRepository orderItemRepository) 
         {
             this.cartRepository = cartRepository;
             this.orderRepository = orderRepository;
             this.userManager = userManager;
             this.emailSender = emailSender;
+            this.orderItemRepository = orderItemRepository;
         }
         public async Task<CheckoutResponse> ProcessPaymentAsync(string userId, CheckoutRequest request , HttpRequest httpRequest)
         {
@@ -145,6 +148,25 @@ namespace YASHOP.BLL.Service.Clasess
             order.Status = OrderStatus.Approved;
             await orderRepository.UpdateAsync(order);
             var user = await userManager.FindByIdAsync(userId);
+
+            var cartitems = await cartRepository.GetItemsAsync(userId);
+            // add Range of order items
+            var orderItems = new List<OrderItem>();
+            foreach (var item in cartitems)
+            {
+                var orderItem = new OrderItem
+                {
+                    OrderId = order.Id,
+                    ProductId = item.ProductId,
+                    Quantity = item.Count,
+                    UnitPrice = item.Product.Price,
+                    TotalPrice = item.Product.Price * item.Count,
+                };
+                orderItems.Add(orderItem);
+            }
+            await orderItemRepository.CreateRangeAsync(orderItems);
+            await cartRepository.ClearCartAsync(userId);
+
             await emailSender.SendEmailAsync(user.Email, "Order Confirmation", $"Thanks For Trust us {user.UserName}");
             return new CheckoutResponse
             {
