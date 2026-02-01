@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YASHOP.DAL.Models;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Interfaces
 {
     public interface ITokenService
     {

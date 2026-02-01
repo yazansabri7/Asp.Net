@@ -9,9 +9,10 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using YASHOP.BLL.Service.Interfaces;
 using YASHOP.DAL.Models;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Clasess
 {
     public class TokenService : ITokenService
     {

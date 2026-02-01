@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YASHOP.BLL.Service.Interfaces;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Clasess
 {
     public class FileService : IFileService
     {

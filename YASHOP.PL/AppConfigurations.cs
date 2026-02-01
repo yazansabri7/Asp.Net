@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using YASHOP.BLL.Service;
+using YASHOP.BLL.Service.Clasess;
+using YASHOP.BLL.Service.Interfaces;
 using YASHOP.DAL.Repository;
 using YASHOP.DAL.Utils;
 
@@ -22,6 +23,7 @@ namespace YASHOP.PL
             Services.AddScoped<ICartRepository, CartReposotory>();
             Services.AddScoped<ICartService, CartService>();
             Services.AddScoped<ICheckoutService, CheckoutService>();
+            Services.AddScoped<IOrderRepository, OrderRepository>();
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Interfaces
 {
     public interface IFileService
     {

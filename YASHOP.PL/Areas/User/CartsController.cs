@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using YASHOP.BLL.Service;
+using YASHOP.BLL.Service.Interfaces;
 using YASHOP.DAL.DTO.Request;
 
 namespace YASHOP.PL.Areas.User

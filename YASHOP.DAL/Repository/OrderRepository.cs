@@ -1,0 +1,40 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using YASHOP.DAL.Data;
+using YASHOP.DAL.Models;
+
+namespace YASHOP.DAL.Repository
+{
+    public class OrderRepository : IOrderRepository
+    {
+        private readonly ApplicationDbContext context;
+
+        public OrderRepository(ApplicationDbContext context)
+        {
+            this.context = context;
+        }
+        public async Task<Order> CreateAsync(Order request)
+        {
+            await context.Orders.AddAsync(request);
+            await context.SaveChangesAsync();
+            return request;
+        }
+
+        public async Task<Order> GetBySessionIdAsync(string sessionId)
+        {
+            var order = await context.Orders.FirstOrDefaultAsync(o => o.SessionId == sessionId);
+            return order;
+        }
+
+        public async Task<Order> UpdateAsync(Order order)
+        {
+            context.Orders.Update(order);
+            await context.SaveChangesAsync();
+            return order;
+        }
+    }
+}

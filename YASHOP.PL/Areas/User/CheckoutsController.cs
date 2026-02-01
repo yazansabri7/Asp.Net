@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
 using System.Security.Claims;
-using YASHOP.BLL.Service;
+using YASHOP.BLL.Service.Interfaces;
 using YASHOP.DAL.DTO.Request;
 
 namespace YASHOP.PL.Areas.User
@@ -28,6 +29,22 @@ namespace YASHOP.PL.Areas.User
                 return BadRequest(response);
             }
             return Ok(response);
+        }
+        [HttpGet("success")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Success([FromQuery] string session_id)
+        {
+            var response = await checkoutService.HandleSuccessAsync(session_id);
+            if(!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+            //var service = new SessionService();
+            //var session = service.Get(session_id);
+            //var userId = session.Metadata["UserId"];
+
+
         }
     }
 }

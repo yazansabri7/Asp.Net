@@ -1,23 +1,36 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YASHOP.BLL.Service.Interfaces;
 using YASHOP.DAL.DTO.Request;
 using YASHOP.DAL.DTO.Response;
+using YASHOP.DAL.Models;
 using YASHOP.DAL.Repository;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Clasess
 {
     public class CheckoutService : ICheckoutService
     {
         private readonly ICartRepository cartRepository;
+        private readonly IOrderRepository orderRepository;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IEmailSender emailSender;
 
-        public CheckoutService(ICartRepository cartRepository) 
+        public CheckoutService(ICartRepository cartRepository 
+            , IOrderRepository orderRepository
+            , UserManager<ApplicationUser> userManager
+            , IEmailSender emailSender) 
         {
             this.cartRepository = cartRepository;
+            this.orderRepository = orderRepository;
+            this.userManager = userManager;
+            this.emailSender = emailSender;
         }
         public async Task<CheckoutResponse> ProcessPaymentAsync(string userId, CheckoutRequest request , HttpRequest httpRequest)
         {
@@ -45,7 +58,15 @@ namespace YASHOP.BLL.Service
                 totalAmount += item.Product.Price * item.Count;
 
             }
-            if (request.PaymentMethod == "cash") 
+
+            Order order = new Order
+            {
+                UserId = userId,
+                PaymentMethod = request.PaymentMethod,
+                AmountPaid = totalAmount
+
+            };
+            if (request.PaymentMethod == PaymentMethod.Cash) 
             {
                 return new CheckoutResponse
                 {
@@ -53,7 +74,7 @@ namespace YASHOP.BLL.Service
                     Message = "Order placed successfully with cash on delivery"
                 };
             }
-            else if (request.PaymentMethod == "visa")
+            else if (request.PaymentMethod == PaymentMethod.Visa)
             {
                 var options = new SessionCreateOptions
                 {
@@ -63,8 +84,12 @@ namespace YASHOP.BLL.Service
                
             },
                     Mode = "payment",
-                    SuccessUrl = $"{httpRequest.Scheme}://{httpRequest.Host}/checkout/success",
-                    CancelUrl = $"{httpRequest.Scheme}://{httpRequest.Host}/checkout/cancel",
+                    SuccessUrl = $"{httpRequest.Scheme}://{httpRequest.Host}/api/checkouts/success?session_id={{CHECKOUT_SESSION_ID}}",
+                    CancelUrl = $"{httpRequest.Scheme}://{httpRequest.Host}/api/checkouts/cancel",
+                    Metadata = new Dictionary<string, string>
+                    {
+                        {"UserId" , userId },
+                    }
                 };
 
                 foreach(var item in cartItems)
@@ -79,7 +104,7 @@ namespace YASHOP.BLL.Service
                                 Name = item.Product.Translations.FirstOrDefault(c => c.Language == "en").Name,
                                 Description = item.Product.Translations.FirstOrDefault(c => c.Language == "en").Description
                             },
-                            UnitAmount = (long)item.Product.Price,
+                            UnitAmount = (long)item.Product.Price * 100,
                         },
                         Quantity = item.Count
                     });
@@ -87,12 +112,15 @@ namespace YASHOP.BLL.Service
                 }
                 var service = new SessionService();
                 var session = service.Create(options);
+                order.SessionId = session.Id;
+
+                await orderRepository.CreateAsync(order);
+
                 return new CheckoutResponse
                 {
                     Success = true,
                     Message = "Payment session created",
                     Url = session.Url,
-                    PaymentId = session.Id
                 };
 
             }
@@ -104,6 +132,25 @@ namespace YASHOP.BLL.Service
                     Message = "Invalid payment method"
                 };
             }
+        }
+
+        public async Task<CheckoutResponse> HandleSuccessAsync(string sessionId)
+        {
+            var service = new SessionService();
+            var session = service.Get(sessionId);
+            var userId = session.Metadata["UserId"];
+
+            var order = await orderRepository.GetBySessionIdAsync(sessionId);
+            order.PaymentId = session.PaymentIntentId;
+            order.Status = OrderStatus.Approved;
+            await orderRepository.UpdateAsync(order);
+            var user = await userManager.FindByIdAsync(userId);
+            await emailSender.SendEmailAsync(user.Email, "Order Confirmation", $"Thanks For Trust us {user.UserName}");
+            return new CheckoutResponse
+            {
+                Success = true,
+                Message = "Payment successful and order approved",
+            };
         }
     }
 }

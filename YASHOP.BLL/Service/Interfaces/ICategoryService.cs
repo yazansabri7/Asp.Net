@@ -7,7 +7,7 @@ using YASHOP.DAL.DTO.Request;
 using YASHOP.DAL.DTO.Response;
 using YASHOP.DAL.Models;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Interfaces
 {
     public interface ICategoryService
     {

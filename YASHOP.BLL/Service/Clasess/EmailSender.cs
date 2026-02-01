@@ -7,7 +7,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Clasess
 {
     public class EmailSender : IEmailSender
     {

@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YASHOP.BLL.Service.Interfaces;
 using YASHOP.DAL.DTO.Request;
 using YASHOP.DAL.DTO.Response;
 using YASHOP.DAL.Models;
 using YASHOP.DAL.Repository;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Clasess
 {
     public class CategoryService : ICategoryService
     {

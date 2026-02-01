@@ -12,11 +12,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using YASHOP.BLL.Service.Interfaces;
 using YASHOP.DAL.DTO.Request;
 using YASHOP.DAL.DTO.Response;
 using YASHOP.DAL.Models;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Clasess
 {
     public class AuthenticationService : IAuthenticationService
     {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System.Threading.Tasks;
-using YASHOP.BLL.Service;
+using YASHOP.BLL.Service.Interfaces;
 using YASHOP.PL.Resourses;
 
 namespace YASHOP.PL.Areas.User

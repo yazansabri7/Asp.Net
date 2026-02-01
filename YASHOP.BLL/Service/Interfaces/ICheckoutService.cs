@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using YASHOP.DAL.DTO.Request;
 using YASHOP.DAL.DTO.Response;
 
-namespace YASHOP.BLL.Service
+namespace YASHOP.BLL.Service.Interfaces
 {
     public interface ICheckoutService
     {
         Task<CheckoutResponse> ProcessPaymentAsync(string userId, CheckoutRequest request , HttpRequest httpRequest);
+        Task<CheckoutResponse> HandleSuccessAsync(string sessionId);
     }
 }
