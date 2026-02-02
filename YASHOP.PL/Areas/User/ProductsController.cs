@@ -19,9 +19,9 @@ namespace YASHOP.PL.Areas.User
             this.localizer = localizer;
         }
         [HttpGet("")]
-        public async Task<IActionResult> Index([FromQuery] string lang = "en", [FromQuery] int page =1 , [FromQuery] int limit = 3)
+        public async Task<IActionResult> Index([FromQuery] string lang = "en", [FromQuery] int page =1 , [FromQuery] int limit = 3 , [FromQuery] string? search = null)
         {
-            var response = await productService.GetAllProductsForUserAsync(lang ,page,limit);
+            var response = await productService.GetAllProductsForUserAsync(lang, page, limit, search);
             return Ok(new {message = localizer["Success"].Value , response });
         }
         [HttpGet("{id}")]
