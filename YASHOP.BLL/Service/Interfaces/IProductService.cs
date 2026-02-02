@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace YASHOP.BLL.Service.Interfaces
         Task<List<ProductResponse>> GetAllProductsForAdminAsync();
         Task<List<ProductUserResponse>> GetAllProductsForUserAsync(string lang = "en");
         Task<ProductUserDetails> GetProductDetailsForUserAsync(int id, string lang = "en");
+        
     }
 }

@@ -22,18 +22,21 @@ namespace YASHOP.BLL.Service.Clasess
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IEmailSender emailSender;
         private readonly IOrderItemRepository orderItemRepository;
+        private readonly IProductRepository productRepository;
 
         public CheckoutService(ICartRepository cartRepository 
             , IOrderRepository orderRepository
             , UserManager<ApplicationUser> userManager
             , IEmailSender emailSender
-            ,IOrderItemRepository orderItemRepository) 
+            ,IOrderItemRepository orderItemRepository
+            ,IProductRepository productRepository) 
         {
             this.cartRepository = cartRepository;
             this.orderRepository = orderRepository;
             this.userManager = userManager;
             this.emailSender = emailSender;
             this.orderItemRepository = orderItemRepository;
+            this.productRepository = productRepository;
         }
         public async Task<CheckoutResponse> ProcessPaymentAsync(string userId, CheckoutRequest request , HttpRequest httpRequest)
         {
@@ -152,6 +155,9 @@ namespace YASHOP.BLL.Service.Clasess
             var cartitems = await cartRepository.GetItemsAsync(userId);
             // add Range of order items
             var orderItems = new List<OrderItem>();
+
+            // decrease range of products quantity
+            var productsUpdated = new List<(int productId, int quantity)>();
             foreach (var item in cartitems)
             {
                 var orderItem = new OrderItem
@@ -163,8 +169,10 @@ namespace YASHOP.BLL.Service.Clasess
                     TotalPrice = item.Product.Price * item.Count,
                 };
                 orderItems.Add(orderItem);
+                productsUpdated.Add((item.ProductId, item.Count));
             }
             await orderItemRepository.CreateRangeAsync(orderItems);
+            await productRepository.DecreaseQuantityForProduct(productsUpdated);
             await cartRepository.ClearCartAsync(userId);
 
             await emailSender.SendEmailAsync(user.Email, "Order Confirmation", $"Thanks For Trust us {user.UserName}");

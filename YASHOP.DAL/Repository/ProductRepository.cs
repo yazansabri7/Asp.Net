@@ -36,5 +36,24 @@ namespace YASHOP.DAL.Repository
             return await context.Products.Include(p => p.Translations).Include(p => p.SubImages)
                  .FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public async Task<bool> DecreaseQuantityForProduct(List<(int productId , int quantity)> items)
+        {
+            var productIds = items.Select(i=>i.productId).ToList();
+            var products = await context.Products.Where(p=> productIds.Contains(p.Id)).ToListAsync();
+            foreach(var product in products)
+            {
+                var item = items.FirstOrDefault(i => i.productId == product.Id);
+                if(product.Quantity < item.quantity)
+                {
+                    return false;
+                }
+                    product.Quantity -= item.quantity;
+            }
+            product.Quantity -= quantity;
+            await context.SaveChangesAsync();
+            return true;
+
+        }
     }
 }
