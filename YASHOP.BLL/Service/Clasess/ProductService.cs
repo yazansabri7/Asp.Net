@@ -30,7 +30,7 @@ namespace YASHOP.BLL.Service.Clasess
             
             return products.Adapt<List<ProductResponse>>();
         }
-        public async Task<List<ProductUserResponse>> GetAllProductsForUserAsync(string lang ="en", int page = 1 ,int limit = 3 ,string? search = null)
+        public async Task<PaginatedResponse<ProductUserResponse>> GetAllProductsForUserAsync( string lang ="en", int page = 1 ,int limit = 3 ,string? search = null)
         {
             var query = productRepository.Query();
             if(search is not null)
@@ -41,7 +41,13 @@ namespace YASHOP.BLL.Service.Clasess
             var totalCount = await query.CountAsync();
             query = query.Skip((page - 1) * limit).Take(limit);
             var response = query.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponse>>();
-            return response;
+            return new PaginatedResponse<ProductUserResponse>
+            {
+                Page = page,
+                Limit = limit,
+                TotalCount = totalCount,
+                Data = response
+            };
 
         }
 

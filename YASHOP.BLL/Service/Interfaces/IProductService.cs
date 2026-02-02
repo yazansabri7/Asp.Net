@@ -13,7 +13,7 @@ namespace YASHOP.BLL.Service.Interfaces
     {
         Task<ProductResponse> CreateProduct(ProductRequest request);
         Task<List<ProductResponse>> GetAllProductsForAdminAsync();
-        Task<List<ProductUserResponse>> GetAllProductsForUserAsync(string lang = "en", int page = 1, int limit = 3, string? search = null);
+        Task<PaginatedResponse<ProductUserResponse>> GetAllProductsForUserAsync(string lang = "en", int page = 1, int limit = 3, string? search = null);
         Task<ProductUserDetails> GetProductDetailsForUserAsync(int id, string lang = "en");
         
     }
