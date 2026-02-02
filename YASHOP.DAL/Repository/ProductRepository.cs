@@ -36,6 +36,11 @@ namespace YASHOP.DAL.Repository
             return await context.Products.Include(p => p.Translations).Include(p => p.SubImages)
                  .FirstOrDefaultAsync(p => p.Id == id);
         }
+        // pagination and filtering will be done in service layer
+        public IQueryable<Product> Query()
+        {
+            return context.Products.Include(p=>p.Translations).AsQueryable();
+        }
 
         public async Task<bool> DecreaseQuantityForProduct(List<(int productId , int quantity)> items)
         {
@@ -50,7 +55,6 @@ namespace YASHOP.DAL.Repository
                 }
                     product.Quantity -= item.quantity;
             }
-            product.Quantity -= quantity;
             await context.SaveChangesAsync();
             return true;
 

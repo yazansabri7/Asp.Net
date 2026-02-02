@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +30,12 @@ namespace YASHOP.BLL.Service.Clasess
             
             return products.Adapt<List<ProductResponse>>();
         }
-        public async Task<List<ProductUserResponse>> GetAllProductsForUserAsync(string lang ="en")
+        public async Task<List<ProductUserResponse>> GetAllProductsForUserAsync(string lang ="en", int page = 1 ,int limit = 3 )
         {
-            var products = await productRepository.GetAllForUserAsync();
-            var response = products.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponse>>();
+            var query = productRepository.Query();
+            var totalCount = await query.CountAsync();
+            query = query.Skip((page - 1) * limit).Take(limit);
+            var response = query.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponse>>();
             return response;
 
         }
