@@ -4,7 +4,7 @@ using YASHOP.BLL.Service.Interfaces;
 using YASHOP.DAL.Repository;
 using YASHOP.DAL.Utils;
 
-namespace YASHOP.PL
+namespace YASHOP.PL.AppConfiguration
 {
     public static class AppConfigurations
     {

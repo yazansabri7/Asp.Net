@@ -15,6 +15,8 @@ using YASHOP.DAL.Data;
 using YASHOP.DAL.Models;
 using YASHOP.DAL.Repository;
 using YASHOP.DAL.Utils;
+using YASHOP.PL.AppConfiguration;
+using YASHOP.PL.Middleware;
 
 namespace YASHOP.PL
 {
@@ -116,6 +118,7 @@ namespace YASHOP.PL
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<GlobalExeptionHandling>();
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseHttpsRedirection();
