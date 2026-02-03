@@ -121,5 +121,16 @@ namespace YASHOP.BLL.Service.Clasess
             var response = product.BuildAdapter().AddParameters("lang",lang).AdaptToType<ProductUserDetails>();
             return response;
         }
+
+        public async Task<List<ProductUserResponse>> GetAllProductsForCategory(int categoryId, string lang = "en")
+        {
+            var products = await productRepository.GetAllProductsForCategory(categoryId);
+            if(products.Count ==0)
+            {
+                return null;
+            }
+            var response = products.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponse>>();
+            return response;
+        }
     }
 }

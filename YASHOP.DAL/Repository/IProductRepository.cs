@@ -15,5 +15,6 @@ namespace YASHOP.DAL.Repository
         Task<Product?> FindByIdAsync(int id);
         Task<bool> DecreaseQuantityForProduct(List<(int productId, int quantity)> items);
         IQueryable<Product> Query();
+        Task<List<Product>> GetAllProductsForCategory(int id);
     }
 }

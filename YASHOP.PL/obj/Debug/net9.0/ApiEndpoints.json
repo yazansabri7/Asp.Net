@@ -395,5 +395,26 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "YASHOP.PL.Areas.User.ProductsController",
+    "Method": "GetProductsByCategory",
+    "RelativePath": "api/Products/categories/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "lang",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

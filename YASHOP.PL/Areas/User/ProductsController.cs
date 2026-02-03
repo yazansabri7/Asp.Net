@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using YASHOP.BLL.Service.Interfaces;
@@ -8,6 +9,7 @@ namespace YASHOP.PL.Areas.User
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService productService;
@@ -35,5 +37,15 @@ namespace YASHOP.PL.Areas.User
             var response = await productService.GetProductDetailsForUserAsync(id , lang);
             return Ok(new { message = localizer["Success"].Value, response });
         }
-    }
+        [HttpGet("categories/{id}")]
+        public async Task<IActionResult> GetProductsByCategory([FromRoute] int id,[FromQuery] string lang = "en")
+        {
+            var response = await productService.GetAllProductsForCategory(id,lang);
+            if(response is  null)
+            {
+            return BadRequest(new { message = localizer["NotFound"].Value  });
+            }
+            return Ok(new { message = localizer["Success"].Value, response });
+        }
+        }
 }

@@ -23,7 +23,8 @@ namespace YASHOP.BLL.Service.Interfaces
             , string? sortBy = null
             , bool asc = true);
         
-            Task<ProductUserDetails> GetProductDetailsForUserAsync(int id, string lang = "en");
-        
+         Task<ProductUserDetails> GetProductDetailsForUserAsync(int id, string lang = "en");
+         Task<List<ProductUserResponse>> GetAllProductsForCategory(int categoryId, string lang = "en");
+
     }
 }
