@@ -51,5 +51,16 @@ namespace YASHOP.PL.Areas.User
             return Ok(response);
 
         }
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdatedCount([FromRoute] int id , [FromBody] UpdateQuantityRequest request)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var response = await cartService.UpdateQuantityAsync(userId, id, request.Count);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
     }
 }

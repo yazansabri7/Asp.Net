@@ -120,5 +120,33 @@ namespace YASHOP.BLL.Service.Clasess
                 Message = "Product Deleted Successfully"
             };
         }
+        public async Task<BaseResponse> UpdateQuantityAsync(string userId,int productId , int count)
+        {
+            var cartItem = await cartRepository.GetCartItemAsync(userId , productId);
+            var product = await productRepository.FindByIdAsync(productId);
+            if (count <= 0)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Invalid Count"
+                };
+            }
+            if(product.Quantity < count)
+            {
+                return new BaseResponse()
+                {
+                    Success = false,
+                    Message = "Not enough stock"
+                };
+            }
+            cartItem.Count = count;
+            await cartRepository.UpdateAsync(cartItem);
+            return new BaseResponse
+            {
+                Success = true,
+                Message = "Update Quantity Successfully"
+            };
+        }
     }
 }
