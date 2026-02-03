@@ -37,7 +37,9 @@ namespace YASHOP.BLL.Service.Clasess
                     Message = "Product not found"
                 };
             }
-            if(product.Quantity < request.Count)
+            var cartItem = await cartRepository.GetCartItemAsync(UserId, request.ProductId);
+            var existingCount = cartItem?.Count ?? 0; // if not exit set value to zero
+            if(product.Quantity <( existingCount+request.Count))
             {
                 return new BaseResponse
                 {
@@ -45,7 +47,6 @@ namespace YASHOP.BLL.Service.Clasess
                     Message = "Insufficient product quantity"
                 };
             }
-            var cartItem = await cartRepository.GetCartItemAsync(UserId, request.ProductId);
             if(cartItem is not null)
             {
                 cartItem.Count = cartItem.Count + request.Count;
