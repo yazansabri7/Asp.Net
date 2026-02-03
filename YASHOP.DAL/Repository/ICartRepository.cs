@@ -14,5 +14,6 @@ namespace YASHOP.DAL.Repository
         Task<Cart?> GetCartItemAsync(string userId, int productId);
         Task<Cart> UpdateAsync(Cart cart);
         Task ClearCartAsync(string userId);
+        Task<Cart> DeleteProductFromCart(Cart cart);
     }
 }

@@ -99,5 +99,26 @@ namespace YASHOP.BLL.Service.Clasess
             };
 
         }
+
+        public async Task<BaseResponse> DeleteProductFromCartAsync(int productId, string userId)
+        {
+            
+            var productDeleted = await cartRepository.GetCartItemAsync(userId, productId);
+            if(productDeleted == null)
+            {
+                return new BaseResponse()
+                {
+                    Success= false,
+                    Message = "Product Not Found"
+
+                };
+            }
+            await cartRepository.DeleteProductFromCart(productDeleted);
+            return new BaseResponse()
+            {
+                Success = true,
+                Message = "Product Deleted Successfully"
+            };
+        }
     }
 }

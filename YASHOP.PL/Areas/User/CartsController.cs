@@ -39,5 +39,17 @@ namespace YASHOP.PL.Areas.User
             var result = await cartService.ClearCartAsync(userId);
             return Ok(result);
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProductFromCart([FromRoute]int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var response = await cartService.DeleteProductFromCartAsync(id, userId);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+
+        }
     }
 }

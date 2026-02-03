@@ -272,6 +272,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "YASHOP.PL.Areas.User.CartsController",
+    "Method": "DeleteProductFromCart",
+    "RelativePath": "api/Carts/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "YASHOP.PL.Areas.User.CategoriesController",
     "Method": "Index",
     "RelativePath": "api/Categories",

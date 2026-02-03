@@ -52,5 +52,13 @@ namespace YASHOP.DAL.Repository
             await context.SaveChangesAsync();
 
         }
+
+        public async Task<Cart> DeleteProductFromCart(Cart cart)
+        {
+            context.Carts.Remove(cart);
+            await context.SaveChangesAsync();
+            return cart;
+           
+        }
     }
 }
