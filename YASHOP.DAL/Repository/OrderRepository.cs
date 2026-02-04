@@ -30,6 +30,25 @@ namespace YASHOP.DAL.Repository
             return order;
         }
 
+        public async Task<Order?> GetOrderById(int orderId)
+        {
+            var order = await context.Orders
+                .Include(o => o.User)
+                .Include(o => o.OrderItems)
+                .ThenInclude(o => o.Product)
+                .FirstOrDefaultAsync(o => o.Id == orderId);
+            return order;
+        }
+
+        public Task<List<Order>> GetOrdersByStatusAsync(OrderStatus status)
+        {
+            var orders = context.Orders
+                .Include(o => o.User)
+                .Where(o => o.Status == status)
+                .ToListAsync();
+            return orders;
+        }
+
         public async Task<Order> UpdateAsync(Order order)
         {
             context.Orders.Update(order);

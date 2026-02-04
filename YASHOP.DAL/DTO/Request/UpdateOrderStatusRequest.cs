@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using YASHOP.DAL.Models;
 
-namespace YASHOP.DAL.Repository
+namespace YASHOP.DAL.DTO.Request
 {
-    public interface IOrderItemRepository
+    public class UpdateOrderStatusRequest
     {
-        Task CreateRangeAsync(List<OrderItem> request);
-        
+        public OrderStatus NewStatus { get; set; }
     }
 }

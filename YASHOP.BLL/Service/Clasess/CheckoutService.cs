@@ -69,8 +69,8 @@ namespace YASHOP.BLL.Service.Clasess
             {
                 UserId = userId,
                 PaymentMethod = request.PaymentMethod,
-                AmountPaid = totalAmount
-
+                AmountPaid = totalAmount,
+                PaymentStatus = PaymentStatus.Unpaid
             };
             if (request.PaymentMethod == PaymentMethod.Cash) 
             {
@@ -119,6 +119,7 @@ namespace YASHOP.BLL.Service.Clasess
                 var service = new SessionService();
                 var session = service.Create(options);
                 order.SessionId = session.Id;
+                order.PaymentStatus = PaymentStatus.Paid;
 
                 await orderRepository.CreateAsync(order);
 

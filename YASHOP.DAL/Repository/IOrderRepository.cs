@@ -13,6 +13,8 @@ namespace YASHOP.DAL.Repository
         Task<Order> CreateAsync(Order request);
         Task<Order> GetBySessionIdAsync(string sessionId);
         Task<Order> UpdateAsync(Order order);
+        Task<List<Order>> GetOrdersByStatusAsync(OrderStatus status);
+        Task<Order?> GetOrderById(int orderId);
 
     }
 }

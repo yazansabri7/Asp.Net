@@ -42,7 +42,8 @@ namespace YASHOP.BLL.MapsterConfigurations
                 .Select(p => p.Description).FirstOrDefault())
                 .Map(dest => dest.SubImages, source => source.SubImages.Select(s=> $"https://localhost:7220/images/{s.ImageName}").ToList());
 
-
+            TypeAdapterConfig<Order, OrderResponse>.NewConfig()
+                .Map(dest => dest.UserName, source => source.User.UserName);
 
 
 
