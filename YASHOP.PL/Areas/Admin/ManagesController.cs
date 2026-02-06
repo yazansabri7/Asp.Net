@@ -31,6 +31,7 @@ namespace YASHOP.PL.Areas.Admin
         => Ok(await manageUser.UnBlockedUserAsync(id));
 
         [HttpPatch("UpdateRole")]
+        [Authorize(Roles ="SuperAdmin")]
         public async Task<IActionResult> UpdateRole([FromBody] ChangeUserRoleRequest request)
         {
             var response = await manageUser.ChangeUserRoleAsync(request);

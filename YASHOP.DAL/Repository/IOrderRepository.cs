@@ -15,6 +15,7 @@ namespace YASHOP.DAL.Repository
         Task<Order> UpdateAsync(Order order);
         Task<List<Order>> GetOrdersByStatusAsync(OrderStatus status);
         Task<Order?> GetOrderById(int orderId);
+        Task<bool> HasUserDeliverdOrderForProduct(string userId, int productId);
 
     }
 }

@@ -530,6 +530,27 @@
   },
   {
     "ContainingType": "YASHOP.PL.Areas.User.ProductsController",
+    "Method": "AddReview",
+    "RelativePath": "api/Products/{id}/review",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "YASHOP.DAL.DTO.Request.CreateReviewRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "YASHOP.PL.Areas.User.ProductsController",
     "Method": "GetProductsByCategory",
     "RelativePath": "api/Products/categories/{id}",
     "HttpMethod": "GET",

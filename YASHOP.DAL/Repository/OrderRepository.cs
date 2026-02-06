@@ -48,7 +48,13 @@ namespace YASHOP.DAL.Repository
                 .ToListAsync();
             return orders;
         }
-
+        public async Task<bool> HasUserDeliverdOrderForProduct(string userId,int productId)
+        {
+            return await context.Orders
+                .Where(o => o.UserId == userId && o.Status == OrderStatus.Delivered)
+                .SelectMany(o => o.OrderItems)
+                .AnyAsync(oi => oi.ProductId == productId);
+        }
         public async Task<Order> UpdateAsync(Order order)
         {
             context.Orders.Update(order);

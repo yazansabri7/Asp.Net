@@ -27,6 +27,8 @@ namespace YASHOP.PL.AppConfiguration
             Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
             Services.AddScoped<IOrderService, OrderService>();
             Services.AddScoped<IManageUsers, ManageUsers>();
+            Services.AddScoped<IReviewRepository, ReviewRepository>();
+            Services.AddScoped<IReviewService, ReviewService>();
         }
     }
 }
