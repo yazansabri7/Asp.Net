@@ -25,8 +25,19 @@ namespace YASHOP.PL
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var MyAllowSpecificOrigins = "_myAllowYazanOrigins";
 
             // Add services to the container.
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy.AllowAnyOrigin()
+                                      .AllowAnyMethod()
+                                      .AllowAnyHeader();
+                                  });
+            });
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -118,6 +129,7 @@ namespace YASHOP.PL
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseCors(MyAllowSpecificOrigins);
             app.UseMiddleware<GlobalExeptionHandling>();
             app.UseStaticFiles();
             app.UseAuthentication();

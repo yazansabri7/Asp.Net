@@ -16,5 +16,6 @@ namespace YASHOP.DAL.DTO.Response
         public decimal Price { get; set; }
         public string MainImage { get; set; }
         public List<string> SubImages { get; set; }
+        public List<ReviewResponse> Reviews { get; set; }
     }
 }

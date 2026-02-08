@@ -17,5 +17,6 @@ namespace YASHOP.DAL.Models
         public Category Category { get; set; }
         public List<ProductTranslation> Translations { get; set; }
         public List<ProductImage> SubImages { get; set; }
+        public List<Review> Reviews { get; set; }
     }
 }

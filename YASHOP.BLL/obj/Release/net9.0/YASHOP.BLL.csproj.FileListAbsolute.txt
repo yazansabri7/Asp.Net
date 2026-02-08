@@ -1,0 +1,16 @@
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\bin\Release\net9.0\YASHOP.BLL.deps.json
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\bin\Release\net9.0\YASHOP.BLL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\bin\Release\net9.0\YASHOP.BLL.pdb
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\bin\Release\net9.0\YASHOP.DAL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\bin\Release\net9.0\YASHOP.DAL.pdb
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.csproj.AssemblyReference.cache
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.AssemblyInfoInputs.cache
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.AssemblyInfo.cs
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.csproj.CoreCompileInputs.cache
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.sourcelink.json
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.csproj.Up2Date
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\refint\YASHOP.BLL.dll
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\YASHOP.BLL.pdb
+C:\Users\hp\Desktop\Back End\API\Project\YASHOP\YASHOP.BLL\obj\Release\net9.0\ref\YASHOP.BLL.dll

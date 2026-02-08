@@ -34,6 +34,8 @@ namespace YASHOP.DAL.Repository
         public async Task<Product?> FindByIdAsync(int id)
         {
             return await context.Products.Include(p => p.Translations).Include(p => p.SubImages)
+                .Include(p=>p.Reviews)
+                .ThenInclude(r=>r.User)
                  .FirstOrDefaultAsync(p => p.Id == id);
         }
         // pagination and filtering will be done in service layer
