@@ -67,5 +67,10 @@ namespace YASHOP.DAL.Repository
             var products = await context.Products.Include(p => p.Translations).Where(p => p.CategoryId == id).ToListAsync();
             return products;
         }
+        public async Task DeleteAsync(Product product)
+        {
+            context.Products.Remove(product);
+            await context.SaveChangesAsync();
+        }
     }
 }

@@ -132,5 +132,23 @@ namespace YASHOP.BLL.Service.Clasess
             var response = products.BuildAdapter().AddParameters("lang", lang).AdaptToType<List<ProductUserResponse>>();
             return response;
         }
+        public async Task<BaseResponse> DeleteProductForAdmin(int productId)
+        {
+            var product = await productRepository.FindByIdAsync(productId);
+            if(product is null)
+            {
+                return new BaseResponse
+                {
+                    Success = false,
+                    Message = "Product Not Found"
+                };
+            }
+            await productRepository.DeleteAsync(product);
+            return new BaseResponse
+            {
+                Success = true,
+                Message = "Product Deleted Successfully"
+            };
+        }
     }
 }

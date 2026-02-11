@@ -16,5 +16,6 @@ namespace YASHOP.DAL.Repository
         Task<bool> DecreaseQuantityForProduct(List<(int productId, int quantity)> items);
         IQueryable<Product> Query();
         Task<List<Product>> GetAllProductsForCategory(int id);
+        Task DeleteAsync(Product product);
     }
 }

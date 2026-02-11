@@ -25,6 +25,7 @@ namespace YASHOP.BLL.Service.Interfaces
         
          Task<ProductUserDetails> GetProductDetailsForUserAsync(int id, string lang = "en");
          Task<List<ProductUserResponse>> GetAllProductsForCategory(int categoryId, string lang = "en");
+         Task<BaseResponse> DeleteProductForAdmin(int productId);
 
     }
 }

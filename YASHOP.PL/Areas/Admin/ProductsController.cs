@@ -33,6 +33,16 @@ namespace YASHOP.PL.Areas.Admin
             var response = await productService.CreateProduct(request);
             return Ok(new {message = localizer["Success"].Value , response  });
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var response = await productService.DeleteProductForAdmin(id);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
         
     }
 }

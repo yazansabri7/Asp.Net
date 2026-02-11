@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YASHOP.BLL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d380487e72572321a302d9b2078285b06408526")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3926665d7ed475472c945f688a8ff0f77753e85c")]
 [assembly: System.Reflection.AssemblyProductAttribute("YASHOP.BLL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YASHOP.BLL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
