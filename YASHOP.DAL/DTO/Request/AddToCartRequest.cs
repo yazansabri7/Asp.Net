@@ -9,6 +9,6 @@ namespace YASHOP.DAL.DTO.Request
     public class AddToCartRequest
     {
         public int ProductId { get; set; }
-        public int Count { get; set; } = 1;
+        public int? Count { get; set; } = 1;
     }
 }
