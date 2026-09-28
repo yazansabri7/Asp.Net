@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YASHOP.PL")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3d380487e72572321a302d9b2078285b06408526")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df52e23a7e7b3888eb9cf8915512ea1ebbb2e4de")]
 [assembly: System.Reflection.AssemblyProductAttribute("YASHOP.PL")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YASHOP.PL")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
